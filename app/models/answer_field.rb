@@ -1,0 +1,2 @@
+class AnswerField < ApplicationRecord
+end

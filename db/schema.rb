@@ -10,13 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161107141223) do
+ActiveRecord::Schema.define(version: 20161107180317) do
+
+  create_table "answer_fields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "question_id"
+    t.string   "type"
+    t.text     "text",         limit: 65535
+    t.string   "dropdown"
+    t.string   "radio_button"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["question_id"], name: "index_answer_fields_on_question_id", using: :btree
+  end
 
   create_table "forms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
     t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_forms_on_user_id", using: :btree
+  end
+
+  create_table "questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "form_id"
+    t.integer  "position"
+    t.string   "question_text"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["form_id"], name: "index_questions_on_form_id", using: :btree
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
