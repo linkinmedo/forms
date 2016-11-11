@@ -1,0 +1,12 @@
+- @page_title = "Delete Form"
+.container
+  .form-delete.jumbotron
+    %h2 Delete Form
+
+    = form_for(@form, :method => 'delete') do |f|
+
+      %p Are you sure you want to permanently delete this form?
+
+      %h3.reference-name= f.object.title
+      = link_to("Cancel", :back, class: "btn btn-primary")
+      = f.submit("Delete", class: "btn btn-danger")

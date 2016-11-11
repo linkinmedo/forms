@@ -1,0 +1,25 @@
+.container
+  .headr.clearfix
+    %nav
+      %ul.nav.nav-pills.pull-right
+        %li{:role => "presentaion"}
+          %a{:href => "#{forms_path}"} Home
+        %li.active{:role => "presentaion"}
+          %a{:href => "#{}"} New
+        %li{:role => "presentaion"}
+          %a{:href => "#{users_logout_path}"} Logout
+    %h3.text-muted Forms
+    %hr
+  %h2 Create Form
+  = form_for(@form) do |f|
+    = error_messages_for(f.object)
+    = f.label(:title, 'Title')
+    %br
+    = f.text_field(:title)
+    %br
+    - counter = 0
+    = f.fields_for(:questions) do |q|
+      - counter += 1
+      = render 'question_fields', f: q, counter: counter
+    = link_to("Cancel", forms_path, :class => 'btn btn-lg btn-default')
+    = f.submit "Create Form", :class => "btn btn-lg btn-primary"

@@ -1,0 +1,7 @@
+= f.label(:question_text, "Question #{counter}")
+= f.hidden_field(:position, value: counter )
+%br
+= f.text_field(:question_text)
+%br
+= f.fields_for(:answer_fields) do |a|
+  = render 'answer_fields', f: a
