@@ -12,25 +12,27 @@
     %hr
     .form.show
       %h2= @form.title
-      -# = form_for(@form) do |f|
-      -# - @form.questions.each do |q|
-      -#   %label= q.question_text
-      -#   - q.answer_fields.each do |a|
-          -# = f.fields_for(:questions) do |question|
-          -#   = question.fields_for(:answer_groups) do |g|
       = form_for(@group) do |f|
+        = error_messages_for(f.object)
         = f.hidden_field(:form_id, value: @form.id )
-        = f.fields_for(:answers) do |ans|
-          - @form.questions.each do |q|
-            %label= q.question_text
+        -# = f.fields_for(:answers) do |ans|
+        - @form.questions.each do |q|
+          .form-group
+            %label= "#{q.position}. #{q.question_text}"
             - q.answer_fields.each do |a|
-              - case a.answer_type
-              - when "dropdown"
-                = ans.select(:submitted_answer, 1..10)
-              - when "text"
-                = ans.text_area(:submitted_answer, :rows => 3)
-              - when "radio button"
-                = ans.radio_button(:submitted_answer, "hello")
-              - when "checkbox"
-                = ans.check_box(:submitted_answer)
+              = f.fields_for(:answers) do |ans|
+                - case a.answer_type
+                - when "dropdown"
+                  = ans.select(:submitted_answer, 1..10, {}, :class => "form-control", :required => true)
+                - when "text"
+                  = ans.text_area(:submitted_answer, :rows => 3, :class => "form-control", :required => true)
+                - when "radio button"
+                  %label.form-control
+                    = ans.radio_button(:submitted_answer, "hello", :checked => true, :required => true)
+                    = "  hello"
+                - when "checkbox"
+                  = hidden_field_tag :submitted_answer, ''
+                  %label.form-control
+                    = ans.check_box(:submitted_answer, :required => true)
+                    = "  yes i do"
         = f.submit "Submit Answers", :class => "btn btn-lg btn-primary"

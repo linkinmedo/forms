@@ -1,7 +1,12 @@
-= f.label(:question_text, "Question #{counter}")
-= f.hidden_field(:position, value: counter )
-%br
-= f.text_field(:question_text)
-%br
-= f.fields_for(:answer_fields) do |a|
-  = render 'answer_fields', f: a
+.fields
+  %h2 Question
+  = link_to_remove_fields("remove", f)
+  .form-group
+    = f.label(:position, "Question position")
+    = f.number_field(:position, value: counter, min: 1, class: "form-control")
+  .form-group
+    = f.label(:question_text, "Question")
+    = f.text_field(:question_text, class: "form-control")
+    -# = link_to_remove_fields("remove", f)
+  = f.fields_for(:answer_fields) do |a|
+    = render 'answer_fields', f: a

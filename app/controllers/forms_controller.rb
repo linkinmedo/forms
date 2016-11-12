@@ -1,6 +1,6 @@
 class FormsController < ApplicationController
 
-  before_action :confirm_logged_in
+  before_action :confirm_logged_in, :except => [:show]
 
   def index
     @forms = Form.where(:user_id => session[:user_id]).sorted
@@ -9,6 +9,7 @@ class FormsController < ApplicationController
     @form = Form.find(params[:id])
     @group = @form.answer_groups.build
     @answer = @group.answers.build
+    # @form.questions.length.times { @group.answers.build }
   end
 
   def new
@@ -71,7 +72,7 @@ class FormsController < ApplicationController
   private
 
   def form_params
-    params.require(:form).permit(:title, questions_attributes: [:position, :question_text, answer_fields_attributes: [:answer_type]])
+    params.require(:form).permit(:title, questions_attributes: [:id, :position, :_destroy, :question_text, answer_fields_attributes: [:id, :answer_type, :text]])
     # params.require(:form).permit!
   end
 end

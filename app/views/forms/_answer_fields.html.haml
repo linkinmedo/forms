@@ -1,4 +1,7 @@
-= f.label(:answer_type, 'Answer Type')
-%br
-= f.select(:answer_type, ['dropdown', 'text', 'radio button', 'checkbox'])
-%br
+.form-group
+  = f.label(:answer_type, 'Answer Type')
+  = f.select(:answer_type, ['text', 'dropdown', 'radio button', 'checkbox'], {},class: "select")
+.form-group
+  = f.label(:text, 'Answer')
+  = f.text_area(:text, class: "form-control", rows: 3)
+%span.help-block in case of radio buttons and select write options saparated by ","

@@ -13,10 +13,10 @@
   %h2 Create Form
   = form_for(@form) do |f|
     = error_messages_for(f.object)
-    = f.label(:title, 'Title')
-    %br
-    = f.text_field(:title)
-    %br
+    .form-group
+      %h2 Title
+      = f.label(:title, 'Title')
+      = f.text_field(:title, class: "form-control")
     - counter = 0
     = f.fields_for(:questions) do |q|
       - counter += 1
