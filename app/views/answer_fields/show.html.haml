@@ -1,2 +1,32 @@
-%h1 AnswerFields#show
-%p Find me in app/views/answer_fields/show.html.haml
+.container
+  .headr.clearfix
+    %nav
+      %ul.nav.nav-pills.pull-right
+        %li{:role => "presentaion"}
+          %a{:href => "#{forms_path}"} Home
+        %li.active{:role => "presentaion"}
+          %a{:href => "#{}"} New
+        %li{:role => "presentaion"}
+          %a{:href => "#{users_logout_path}"} Logout
+    %h3.text-muted Forms
+    %hr
+    .form.show
+      %h2= @form.title
+      = form_for(@form) do |f|
+        - @form.questions.each do |q|
+          %label= q.question_text
+          - q.answer_fields.each do |a|
+            = q.fields_for(:answer_groups) do |g|
+              = g.fields_for(:answers) do |ans|
+                - case a.answer_type
+                - when "dropdown"
+                  = ans.select(:submitted_text, 1..10)
+                - when "text"
+                  = ans.text_area(:submitted_text, :rows => 3)
+                - when "radio button"
+                  = ans.radio_button(:submitted_text, "hello")
+                - when "checkbox"
+                  = ans.check_box(:submitted_text)
+                %br
+              %br
+            %br

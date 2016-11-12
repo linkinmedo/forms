@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   root 'users#login'
 
   get 'users/login'
@@ -22,6 +23,16 @@ Rails.application.routes.draw do
     end
   end
   resources :answer_fields do
+    member do
+      get :delete
+    end
+  end
+  resources :answer_groups do
+    member do
+      get :delete
+    end
+  end
+  resources :answers do
     member do
       get :delete
     end

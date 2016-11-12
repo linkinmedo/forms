@@ -12,18 +12,25 @@
     %hr
     .form.show
       %h2= @form.title
-      - @form.questions.each do |q|
-        %label= q.question_text
-        - q.answer_fields.each do |a|
-          - case a.answer_type
-          - when "dropdown"
-            = select_tag(1..3)
-          - when "text"
-            = text_area_tag(1..3)
-          - when "radio button"
-            = radio_button_tag(true,'html')
-          - when "checkbox"
-            = check_box_tag(1)
-          %br
-        %br
-      %br
+      -# = form_for(@form) do |f|
+      -# - @form.questions.each do |q|
+      -#   %label= q.question_text
+      -#   - q.answer_fields.each do |a|
+          -# = f.fields_for(:questions) do |question|
+          -#   = question.fields_for(:answer_groups) do |g|
+      = form_for(@group) do |f|
+        = f.hidden_field(:form_id, value: @form.id )
+        = f.fields_for(:answers) do |ans|
+          - @form.questions.each do |q|
+            %label= q.question_text
+            - q.answer_fields.each do |a|
+              - case a.answer_type
+              - when "dropdown"
+                = ans.select(:submitted_answer, 1..10)
+              - when "text"
+                = ans.text_area(:submitted_answer, :rows => 3)
+              - when "radio button"
+                = ans.radio_button(:submitted_answer, "hello")
+              - when "checkbox"
+                = ans.check_box(:submitted_answer)
+        = f.submit "Submit Answers", :class => "btn btn-lg btn-primary"

@@ -7,6 +7,8 @@ class FormsController < ApplicationController
   end
   def show
     @form = Form.find(params[:id])
+    @group = @form.answer_groups.build
+    @answer = @group.answers.build
   end
 
   def new
