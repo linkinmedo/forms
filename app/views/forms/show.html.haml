@@ -1,9 +1,10 @@
 .container
   .headr.clearfix
-    %nav
-      %ul.nav.nav-pills.pull-right
-        %li{:role => "presentaion"}
-          %a{:href => "#{forms_path}"} Home
+    -if session[:user_id]
+      %nav
+        %ul.nav.nav-pills.pull-right
+          %li{:role => "presentaion"}
+            %a{:href => "#{forms_path}"} Home
     %h3.text-muted Forms
     %hr
     .form.show
@@ -13,22 +14,27 @@
         = f.hidden_field(:form_id, value: @form.id )
         -# = f.fields_for(:answers) do |ans|
         - @form.questions.order(:position).each do |q|
+          - field_text = q.answer_fields.first.text
           .form-group
             %label= "#{q.position}. #{q.question_text}"
             - q.answer_fields.each do |a|
               = f.fields_for(:answers) do |ans|
+                = ans.hidden_field(:question_id, value: q.id )
                 - case a.answer_type
                 - when "dropdown"
-                  = ans.select(:submitted_answer, 1..10, {}, :class => "form-control", :required => true)
+                  - field_text = field_text.split(",").map(&:strip)
+                  = ans.select(:submitted_answer, field_text, {}, :class => "form-control", :required => true)
                 - when "text"
-                  = ans.text_area(:submitted_answer, :rows => 3, :class => "form-control", :required => true)
+                  = ans.text_area(:submitted_answer, :rows => 3, :placeholder => field_text, :class => "form-control", :required => true)
                 - when "radio button"
                   %label.form-control
-                    = ans.radio_button(:submitted_answer, "hello", :checked => true, :required => true)
-                    = "  hello"
+                    - field_text = field_text.split(",").map(&:strip)
+                    - field_text.each do |f|
+                      = ans.radio_button(:submitted_answer, f, :checked => true, :required => true)
+                      = "  #{f}"
                 - when "checkbox"
                   = hidden_field_tag :submitted_answer, ''
                   %label.form-control
                     = ans.check_box(:submitted_answer, :required => true)
-                    = "  yes i do"
+                    = "  #{field_text}"
         = f.submit "Submit Answers", :class => "btn btn-lg btn-primary"

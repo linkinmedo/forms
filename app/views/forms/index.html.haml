@@ -7,27 +7,31 @@
         %li{:role => "presentaion"}
           %a{:href => "#{new_form_path}"} New
         %li{:role => "presentaion"}
+          %a{:href => "#{answer_groups_path}"} Answers
+        %li{:role => "presentaion"}
           %a{:href => "#{users_logout_path}"} Logout
     %h3.text-muted Forms
   -# %h1= "#{@user.username}'s forms."
   = link_to "Create New Form", new_form_path, class: "btn btn-primary action new"
+  - if !flash[:notice].blank?
+    .notice
+      = flash[:notice]
   - if !@forms.empty?
-    - if !flash[:notice].blank?
-      .notice
-        = flash[:notice]
-    .forms.index
-      %table.table
-        %tr.header
-          %th Title
-          %th Date Created
-          %th Actions
-        - @forms.each do |form|
-          %tr
-            %td= link_to form.title, form_path(form)
-            %td= form.created_at
-            %td.actions
-              = link_to "Edit", edit_form_path(form), class: "btn btn-default action edit"
-              = link_to "Delete", delete_form_path(form), class: "btn btn-danger action delete"
+    %table.table
+      %tr.header
+        %th Title
+        %th Date Created
+        %th Link
+        %th Actions
+      - @forms.each do |form|
+        %tr
+          %td= link_to form.title, form_path(form)
+          %td= form.created_at
+          %td= "#{form_url(form)}"
+          %td.actions
+            = link_to "Edit", edit_form_path(form), class: "btn btn-default action edit"
+            = link_to "Answers", answer_groups_path(:id => form.id), class: "btn btn-default action edit"
+            = link_to "Delete", delete_form_path(form), class: "btn btn-danger action delete"
   - else
     %h1 You have no forms
     %h3 Create one by clicking the button above

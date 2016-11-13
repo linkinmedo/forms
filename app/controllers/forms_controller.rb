@@ -1,6 +1,6 @@
 class FormsController < ApplicationController
 
-  before_action :confirm_logged_in, :except => [:show]
+  before_action :confirm_logged_in, :except => [:show, :thank_you]
 
   def index
     @forms = Form.where(:user_id => session[:user_id]).sorted
@@ -27,7 +27,6 @@ class FormsController < ApplicationController
 
   def create
     # Instantiate a new object using form parameters
-    puts params[:form]
     @form = Form.new(form_params)
     @form.user_id = session[:user_id]
     # Save the object
@@ -67,6 +66,10 @@ class FormsController < ApplicationController
     @form.destroy
     flash[:notice] = "Form '#{@form.title}' has been deleted successfully."
     redirect_to(forms_path)
+  end
+
+  def thank_you
+    #code
   end
 
   private

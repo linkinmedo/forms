@@ -1,0 +1,8 @@
+.container
+  .jumbotron
+    %h1 Thank you for filling the form
+    - if session[:user_id]
+      = link_to("Go Home", forms_path, class: "btn btn-primary")
+    - else
+      = link_to("Login", users_login_path, class: "btn btn-primary")
+      = link_to("Sign up", new_user_path, class: "btn btn-default")

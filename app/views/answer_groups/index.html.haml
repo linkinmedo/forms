@@ -3,26 +3,34 @@
     %nav
       %ul.nav.nav-pills.pull-right
         %li{:role => "presentaion"}
-          %a{:href => "#{}"} Home
+          %a{:href => "#{forms_path}"} Home
         %li{:role => "presentaion"}
           %a{:href => "#{new_form_path}"} New
         %li{:role => "presentaion"}
           %a{:href => "#{users_logout_path}"} Logout
     %h3.text-muted Forms
+  - if !flash[:notice].blank?
+    .notice
+      = flash[:notice]
+  - @counter = 0
   - if !@answer_groups.empty?
+    - enabler = true if !@form
     .answer-groups.index
       %table.table
         %tr.header
+          %th #
           %th Title
           %th Date Created
           %th Actions
         - @answer_groups.each do |answer_group|
+          - @counter += 1
+          - if enabler
+            - @form = Form.find(answer_group.form_id)
           %tr
-            %td= link_to form.title, form_path(form)
-            %td= form.created_at
+            %td= @counter
+            %td= link_to @form.title, answer_group_path(answer_group)
+            %td= answer_group.created_at
             %td.actions
-              = link_to "Edit", edit_form_path(form), class: "btn btn-default action edit"
-              = link_to "Delete", delete_form_path(form), class: "btn btn-danger action delete"
+              = link_to "Delete", delete_answer_group_path(answer_group), class: "btn btn-danger action delete"
   - else
-    %h1 You have no forms
-    %h3 Create one by clicking the button above
+    %h1 Nobody answered this form yet

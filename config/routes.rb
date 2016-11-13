@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'users/login'
   post 'users/attempt_login'
   get 'users/logout'
+  get 'forms/thank_you'
 
   resources :users do
     member do

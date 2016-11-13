@@ -1,2 +1,22 @@
-%h1 AnswerGroups#show
-%p Find me in app/views/answer_groups/show.html.haml
+.container
+  .headr.clearfix
+    %nav
+      %ul.nav.nav-pills.pull-right
+        %li{:role => "presentaion"}
+          %a{:href => "#{forms_path}"} Home
+    %h3.text-muted Forms
+    %hr
+    .form.show
+      %h2= @form.title
+      - @form.questions.order(:position).each do |question|
+        %h3= "#{question.position}. #{question.question_text}"
+        - question.answers.each do |ans|
+          -if ans.answer_group_id == @answer_group.id
+            - if question.answer_fields.first.answer_type != "checkbox"
+              %h4= "- #{ans.submitted_answer}"
+            - else
+              - case ans.submitted_answer
+              -when "1"
+                %h4= "&#10003; #{question.answer_fields.first.text}".html_safe
+              -when "0"
+                %h4= "&#10007; #{question.answer_fields.first.text}".html_safe

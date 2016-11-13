@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161111234215) do
+ActiveRecord::Schema.define(version: 20161113140030) do
 
   create_table "answer_fields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "question_id"
@@ -32,8 +32,10 @@ ActiveRecord::Schema.define(version: 20161111234215) do
 
   create_table "answers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "answer_group_id"
+    t.integer "question_id"
     t.text    "submitted_answer", limit: 65535
     t.index ["answer_group_id"], name: "index_answers_on_answer_group_id", using: :btree
+    t.index ["question_id"], name: "index_answers_on_question_id", using: :btree
   end
 
   create_table "forms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

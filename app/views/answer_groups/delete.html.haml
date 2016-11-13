@@ -1,2 +1,11 @@
-%h1 AnswerGroups#delete
-%p Find me in app/views/answer_groups/delete.html.haml
+- @page_title = "Delete Form"
+.container
+  .form-delete.jumbotron
+    %h2 Delete Form
+
+    = form_for(@answer_group, :method => 'delete') do |f|
+
+      %p Are you sure you want to permanently delete this form?
+
+      = link_to("Cancel", :back, class: "btn btn-primary")
+      = f.submit("Delete", class: "btn btn-danger")
