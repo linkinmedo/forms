@@ -4,10 +4,6 @@
       %ul.nav.nav-pills.pull-right
         %li{:role => "presentaion"}
           %a{:href => "#{forms_path}"} Home
-        %li.active{:role => "presentaion"}
-          %a{:href => "#{}"} New
-        %li{:role => "presentaion"}
-          %a{:href => "#{users_logout_path}"} Logout
     %h3.text-muted Forms
     %hr
     .form.show
@@ -16,7 +12,7 @@
         = error_messages_for(f.object)
         = f.hidden_field(:form_id, value: @form.id )
         -# = f.fields_for(:answers) do |ans|
-        - @form.questions.each do |q|
+        - @form.questions.order(:position).each do |q|
           .form-group
             %label= "#{q.position}. #{q.question_text}"
             - q.answer_fields.each do |a|

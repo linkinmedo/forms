@@ -12,14 +12,14 @@
     %hr
   %h2 Create Form
   = form_for(@form) do |f|
-    = error_messages_for(f.object)
-    .form-group
-      %h2 Title
-      = f.label(:title, 'Title')
-      = f.text_field(:title, class: "form-control")
-    - counter = 0
-    = f.fields_for(:questions) do |q|
-      - counter += 1
-      = render 'question_fields', f: q, counter: counter
+    .form
+      = error_messages_for(f.object)
+      .form-group
+        %h2 Title
+        = f.label(:title, 'Title')
+        = f.text_field(:title, class: "form-control",:required => true)
+      - @counter = 0
+      = render 'question_fields', f: f, counter: @counter
+    = link_to_add_fields("Add Question", f, :questions)
     = link_to("Cancel", forms_path, :class => 'btn btn-lg btn-default')
     = f.submit "Create Form", :class => "btn btn-lg btn-primary"

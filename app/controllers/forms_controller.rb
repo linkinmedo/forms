@@ -14,10 +14,10 @@ class FormsController < ApplicationController
 
   def new
     @form = Form.new
-    5.times do
-      question = @form.questions.build
-      question.answer_fields.build
-    end
+    # 5.times do
+    question = @form.questions.build
+    question.answer_fields.build
+    # end
     # @form.answer_fields.build
     # respond_to do |format|
     #   format.html # show.html.erb

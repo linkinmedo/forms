@@ -1,5 +1,6 @@
 class AnswerGroupsController < ApplicationController
   def index
+    @answer_groups = AnswerGroup.all
   end
 
   def show

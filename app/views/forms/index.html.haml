@@ -12,6 +12,9 @@
   -# %h1= "#{@user.username}'s forms."
   = link_to "Create New Form", new_form_path, class: "btn btn-primary action new"
   - if !@forms.empty?
+    - if !flash[:notice].blank?
+      .notice
+        = flash[:notice]
     .forms.index
       %table.table
         %tr.header
