@@ -1,15 +1,6 @@
 .container
   .headr.clearfix
-    %nav
-      %ul.nav.nav-pills.pull-right
-        %li.active{:role => "presentaion"}
-          %a{:href => "#{}"} Home
-        %li{:role => "presentaion"}
-          %a{:href => "#{new_form_path}"} New
-        %li{:role => "presentaion"}
-          %a{:href => "#{answer_groups_path}"} Answers
-        %li{:role => "presentaion"}
-          %a{:href => "#{users_logout_path}"} Logout
+    = render partial: 'application/navigation'
     %h3.text-muted Forms
   -# %h1= "#{@user.username}'s forms."
   = link_to "Create New Form", new_form_path, class: "btn btn-primary action new"

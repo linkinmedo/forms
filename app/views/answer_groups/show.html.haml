@@ -1,15 +1,15 @@
 .container
   .headr.clearfix
-    %nav
-      %ul.nav.nav-pills.pull-right
-        %li{:role => "presentaion"}
-          %a{:href => "#{forms_path}"} Home
+    -if session[:user_id]
+      = render partial: 'application/navigation'
     %h3.text-muted Forms
     %hr
     .form.show
       %h2= @form.title
+      - @counter = 0
       - @form.questions.order(:position).each do |question|
-        %h3= "#{question.position}. #{question.question_text}"
+        - @counter += 1
+        %h3= "#{@counter}. #{question.question_text}"
         - question.answers.each do |ans|
           -if ans.answer_group_id == @answer_group.id
             - if question.answer_fields.first.answer_type != "checkbox"

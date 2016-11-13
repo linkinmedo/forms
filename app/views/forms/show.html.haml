@@ -1,10 +1,7 @@
 .container
   .headr.clearfix
     -if session[:user_id]
-      %nav
-        %ul.nav.nav-pills.pull-right
-          %li{:role => "presentaion"}
-            %a{:href => "#{forms_path}"} Home
+      = render partial: 'application/navigation'
     %h3.text-muted Forms
     %hr
     .form.show
@@ -27,10 +24,10 @@
                 - when "text"
                   = ans.text_area(:submitted_answer, :rows => 3, :placeholder => field_text, :class => "form-control", :required => true)
                 - when "radio button"
-                  %label.form-control
-                    - field_text = field_text.split(",").map(&:strip)
-                    - field_text.each do |f|
-                      = ans.radio_button(:submitted_answer, f, :checked => true, :required => true)
+                  - field_text = field_text.split(",").map(&:strip)
+                  - field_text.each do |f|
+                    %label.form-control
+                      = ans.radio_button(:submitted_answer, f, :required => true)
                       = "  #{f}"
                 - when "checkbox"
                   = hidden_field_tag :submitted_answer, ''

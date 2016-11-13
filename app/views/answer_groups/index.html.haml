@@ -1,13 +1,6 @@
 .container
   .headr.clearfix
-    %nav
-      %ul.nav.nav-pills.pull-right
-        %li{:role => "presentaion"}
-          %a{:href => "#{forms_path}"} Home
-        %li{:role => "presentaion"}
-          %a{:href => "#{new_form_path}"} New
-        %li{:role => "presentaion"}
-          %a{:href => "#{users_logout_path}"} Logout
+    = render partial: 'application/navigation'
     %h3.text-muted Forms
   - if !flash[:notice].blank?
     .notice

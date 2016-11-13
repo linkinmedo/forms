@@ -10,16 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161113140030) do
+ActiveRecord::Schema.define(version: 20161113205856) do
 
   create_table "answer_fields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "question_id"
     t.string   "answer_type"
-    t.text     "text",         limit: 65535
-    t.string   "dropdown"
-    t.string   "radio_button"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.text     "text",        limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.index ["question_id"], name: "index_answer_fields_on_question_id", using: :btree
   end
 
