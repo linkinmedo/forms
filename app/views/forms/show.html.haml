@@ -31,6 +31,6 @@
                 - when "checkbox"
                   = hidden_field_tag :submitted_answer, ''
                   %label.form-control
-                    = ans.check_box(:submitted_answer, :required => true)
+                    = ans.check_box(:submitted_answer)
                     = "  #{field_text}"
         = f.submit "Submit Answers", :class => "btn btn-lg btn-primary"
