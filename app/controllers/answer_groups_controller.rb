@@ -3,7 +3,6 @@ class AnswerGroupsController < ApplicationController
   before_action :confirm_logged_in, :except => [:create]
 
   def index
-    # @answer_groups = AnswerGroup.find_by('form_id' ,params[:id])
     if params[:id]
       @answer_groups = AnswerGroup.where(:form_id => params[:id])
       @form = Form.find(params[:id])
@@ -22,13 +21,9 @@ class AnswerGroupsController < ApplicationController
 
   def create
     @answer_group = AnswerGroup.new(answer_group_params)
-    # Save the object
     if @answer_group.save
-      # If save succeeds, redirect to the index action
-      flash[:notice] = "Form has been created successfully."
       redirect_to(forms_thank_you_path)
     else
-      # If save fails, redisplay the form so user can fix problems
       redirect_back(fallback_location: root_path)
     end
   end

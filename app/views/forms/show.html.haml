@@ -9,7 +9,6 @@
       = form_for(@group) do |f|
         = error_messages_for(f.object)
         = f.hidden_field(:form_id, value: @form.id )
-        -# = f.fields_for(:answers) do |ans|
         - @form.questions.order(:position).each do |q|
           - field_text = q.answer_fields.first.text
           .form-group

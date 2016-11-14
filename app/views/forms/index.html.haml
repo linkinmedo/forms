@@ -2,10 +2,9 @@
   .headr.clearfix
     = render partial: 'application/navigation'
     %h3.text-muted Forms
-  -# %h1= "#{@user.username}'s forms."
   = link_to "Create New Form", new_form_path, class: "btn btn-primary action new"
   - if !flash[:notice].blank?
-    .notice
+    .notice.bg-success
       = flash[:notice]
   - if !@forms.empty?
     %table.table

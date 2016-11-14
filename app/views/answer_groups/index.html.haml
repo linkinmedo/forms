@@ -3,7 +3,7 @@
     = render partial: 'application/navigation'
     %h3.text-muted Forms
   - if !flash[:notice].blank?
-    .notice
+    .notice.bg-success
       = flash[:notice]
   - @counter = 0
   - if !@answer_groups.empty?
@@ -25,5 +25,6 @@
             %td= answer_group.created_at
             %td.actions
               = link_to "Delete", delete_answer_group_path(answer_group), class: "btn btn-danger action delete"
+              = link_to "This form only", "answer_groups?id=#{answer_group.form_id}", class: "btn btn-default action"
   - else
     %h1 Nobody answered this form yet

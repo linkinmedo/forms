@@ -5,7 +5,6 @@ class Question < ApplicationRecord
 
   accepts_nested_attributes_for :answer_fields, :allow_destroy => true
   accepts_nested_attributes_for :answers, :allow_destroy => true
-  # , :reject_if => lambda { |a| a[:content].blank? }
 
-  # validates :position,  :presence => true
+  validates :position,  :presence => true
 end
