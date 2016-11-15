@@ -7,7 +7,9 @@ class AnswerGroupsController < ApplicationController
       @answer_groups = AnswerGroup.where(:form_id => params[:id])
       @form = Form.find(params[:id])
     else
-      @answer_groups = AnswerGroup.all
+      @user = User.find(session[:user_id])
+      @forms = @user.forms
+      @answer_groups = AnswerGroup.where(:form_id => @forms.ids)
     end
   end
 
