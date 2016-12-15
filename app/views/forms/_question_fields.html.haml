@@ -1,12 +1,13 @@
-- @counter += 1
-%fieldset
-  %h2 Question
-  = link_to_remove_fields("remove", f)
-  .form-group
-    = f.label(:position, "Question position")
-    = f.number_field(:position, value: @counter, min: 1, class: "form-control", :required => true)
+= f.fields_for(:questions) do |q|
+  - @counter += 1
+  %qieldset
+    %h2 Question
+    = link_to_remove_fields("remove", q)
     .form-group
-      = f.label(:question_text, "Question")
-      = f.text_field(:question_text, class: "form-control")
-    = f.fields_for(:answer_fields) do |a|
-      = render 'answer_fields', f: a
+      = q.label(:position, "Question position")
+      = q.number_field(:position, value: @counter, min: 1, class: "form-control", :required => true)
+      .form-group
+        = q.label(:question_text, "Question")
+        = q.text_field(:question_text, class: "form-control")
+      = q.fields_for(:answer_fields) do |a|
+        = render 'answer_fields', a: a

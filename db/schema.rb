@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20161113205856) do
 
-  create_table "answer_fields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "answer_fields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "question_id"
     t.string   "answer_type"
     t.text     "text",        limit: 65535
@@ -21,14 +21,14 @@ ActiveRecord::Schema.define(version: 20161113205856) do
     t.index ["question_id"], name: "index_answer_fields_on_question_id", using: :btree
   end
 
-  create_table "answer_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "answer_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "form_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["form_id"], name: "index_answer_groups_on_form_id", using: :btree
   end
 
-  create_table "answers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "answers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer "answer_group_id"
     t.integer "question_id"
     t.text    "submitted_answer", limit: 65535
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20161113205856) do
     t.index ["question_id"], name: "index_answers_on_question_id", using: :btree
   end
 
-  create_table "forms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "forms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "user_id"
     t.string   "title"
     t.datetime "created_at", null: false
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20161113205856) do
     t.index ["user_id"], name: "index_forms_on_user_id", using: :btree
   end
 
-  create_table "questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "form_id"
     t.integer  "position"
     t.text     "question_text", limit: 65535
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20161113205856) do
     t.index ["form_id"], name: "index_questions_on_form_id", using: :btree
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "username",        limit: 25
     t.string   "password_digest"
     t.string   "email",           limit: 100
